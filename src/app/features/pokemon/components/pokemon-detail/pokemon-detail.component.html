@@ -1,13 +1,13 @@
 <div class='text-center'>
-  <img [src]='pokemonDetail.img' [alt]='pokemonDetail.name.english'>
+  <img [alt]='pokemonDetail.name.english' [src]='pokemonDetail.img'>
   <h3 class='mb-3'>{{pokemonDetail.name.english}}</h3>
   <div class='d-flex justify-content-center'>
-    <div class='p-1 me-2 rounded text-uppercase bg-default' *ngFor='let type of pokemonDetail.type' [ngClass]="{
-          'bg-success':type === 'Grass',
-          'bg-danger':type === 'Fire',
-          'bg-primary':type === 'Water',
-          'indigo-color':type === 'Poison'
-        }">
+    <div *ngFor='let type of pokemonDetail.type' [ngClass]="{
+              'bg-success':type === 'Grass',
+              'bg-danger':type === 'Fire',
+              'bg-primary':type === 'Water',
+              'indigo-color':type === 'Poison'
+          }" class='p-1 me-2 rounded text-uppercase bg-default'>
       {{type}}
     </div>
   </div>
@@ -38,3 +38,4 @@
     </div>
   </div>
 </div>
+

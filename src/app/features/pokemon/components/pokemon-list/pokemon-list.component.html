@@ -2,7 +2,7 @@
   <app-pokemon-search (searchPoke)='onSearchPokemon($event)'></app-pokemon-search>
   <div class="row g-4">
     <div class="col-sm-3" *ngFor="let pokemon of pokemonList">
-      <div class="border rounded p-2 d-flex flex-column justify-content-center align-items-center" (click)='modal.toggleModal()'>
+      <div class="border rounded p-2 d-flex flex-column justify-content-center align-items-center" (click)='showDetail(pokemon.id)'>
         <img [src]="pokemon.img" [alt]="pokemon.name.english">
         <h3>{{ pokemon.name.english }}</h3>
         <div class="mb-2">
@@ -15,12 +15,12 @@
         }">{{ item }}</span>
         </div>
       </div>
-
-      <app-modal #modal>
-        <app-pokemon-detail [id]='pokemon.id'></app-pokemon-detail>
-      </app-modal>
     </div>
   </div>
 </div>
+
+<app-modal #modal>
+  <app-pokemon-detail [id]='currentPokemon'></app-pokemon-detail>
+</app-modal>
 
 

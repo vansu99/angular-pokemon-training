@@ -1,6 +1,7 @@
-import { Component, OnInit } from '@angular/core';
+import { Component, OnInit, ViewChild } from '@angular/core'
 import { PokemonList } from '@features/pokemon/models/pokemon.model'
 import { PokemonService } from '@features/pokemon/services/pokemon.service'
+import { ModalComponent } from '@shared/app-modal/modal.component'
 
 @Component({
   selector: 'app-pokemon-list',
@@ -8,8 +9,10 @@ import { PokemonService } from '@features/pokemon/services/pokemon.service'
   styleUrls: ['./pokemon-list.component.scss']
 })
 export class PokemonListComponent implements OnInit {
+  @ViewChild('modal') modal: ModalComponent | undefined
   pokemonList: PokemonList[] = []
-  isOpenModal = false
+  currentPokemon: number = 1
+
   constructor(private _pokeService: PokemonService) { }
 
   ngOnInit(): void {
@@ -24,4 +27,8 @@ export class PokemonListComponent implements OnInit {
     }
   }
 
+  showDetail(value: number) {
+    this.currentPokemon = value
+    this.modal?.toggleModal()
+  }
 }

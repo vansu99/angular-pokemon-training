@@ -1,4 +1,4 @@
-import { Component, ElementRef, EventEmitter, Input, Output } from '@angular/core'
+import { Component } from '@angular/core'
 
 @Component({
   selector: 'app-modal',
@@ -7,7 +7,9 @@ import { Component, ElementRef, EventEmitter, Input, Output } from '@angular/cor
 })
 export class ModalComponent {
   isOpen: boolean = false;
-  constructor() {}
+  constructor() {
+    console.log('modal run')
+  }
 
   toggleModal() {
     this.isOpen = !this.isOpen
