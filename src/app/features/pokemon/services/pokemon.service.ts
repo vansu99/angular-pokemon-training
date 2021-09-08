@@ -12,4 +12,8 @@ export class PokemonService {
   getListPokemons(): PokemonList[] {
     return DataPokemon;
   }
+
+  getPokemon(id: number): any {
+    return DataPokemon.find(poke => poke.id === id)
+  }
 }

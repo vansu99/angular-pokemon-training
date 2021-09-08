@@ -8,6 +8,7 @@ import { ModalComponent } from '@shared/app-modal/modal.component'
   declarations: [ModalComponent],
   imports: [
     CommonModule
-  ]
+  ],
+  exports: [ModalComponent]
 })
 export class ShareModule { }

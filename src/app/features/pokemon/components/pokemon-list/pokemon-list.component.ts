@@ -9,6 +9,7 @@ import { PokemonService } from '@features/pokemon/services/pokemon.service'
 })
 export class PokemonListComponent implements OnInit {
   pokemonList: PokemonList[] = []
+  isOpenModal = false
   constructor(private _pokeService: PokemonService) { }
 
   ngOnInit(): void {

@@ -1,1 +1,40 @@
-<p>pokemon-detail works!</p>
+<div class='text-center'>
+  <img [src]='pokemonDetail.img' [alt]='pokemonDetail.name.english'>
+  <h3 class='mb-3'>{{pokemonDetail.name.english}}</h3>
+  <div class='d-flex justify-content-center'>
+    <div class='p-1 me-2 rounded text-uppercase bg-default' *ngFor='let type of pokemonDetail.type' [ngClass]="{
+          'bg-success':type === 'Grass',
+          'bg-danger':type === 'Fire',
+          'bg-primary':type === 'Water',
+          'indigo-color':type === 'Poison'
+        }">
+      {{type}}
+    </div>
+  </div>
+  <div class='mt-3'>
+    <div class='row'>
+      <div class='col-6 text-end text-uppercase'>HP</div>
+      <div class='col-6 text-start fw-bold'>{{pokemonDetail.base.HP}}</div>
+    </div>
+    <div class='row'>
+      <div class='col-6 text-end text-uppercase'>Attack</div>
+      <div class='col-6 text-start fw-bold'>{{pokemonDetail.base.Attack}}</div>
+    </div>
+    <div class='row'>
+      <div class='col-6 text-end text-uppercase'>Defense</div>
+      <div class='col-6 text-start fw-bold'>{{pokemonDetail.base.Defense}}</div>
+    </div>
+    <div class='row'>
+      <div class='col-6 text-end text-uppercase'>SP Attack</div>
+      <div class='col-6 text-start fw-bold'>{{pokemonDetail.base.SpAttack}}</div>
+    </div>
+    <div class='row'>
+      <div class='col-6 text-end text-uppercase'>SP Defense</div>
+      <div class='col-6 text-start fw-bold'>{{pokemonDetail.base.SpDefense}}</div>
+    </div>
+    <div class='row'>
+      <div class='col-6 text-end text-uppercase'>Speed</div>
+      <div class='col-6 text-start fw-bold'>{{pokemonDetail.base.Speed}}</div>
+    </div>
+  </div>
+</div>

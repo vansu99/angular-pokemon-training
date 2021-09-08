@@ -3,6 +3,7 @@ import { CommonModule } from '@angular/common';
 import { PokemonListComponent } from './components/pokemon-list/pokemon-list.component';
 import { PokemonDetailComponent } from './components/pokemon-detail/pokemon-detail.component';
 import { PokemonSearchComponent } from './components/pokemon-search/pokemon-search.component';
+import { ShareModule } from '@shared/share.module'
 
 
 
@@ -13,7 +14,8 @@ import { PokemonSearchComponent } from './components/pokemon-search/pokemon-sear
     PokemonSearchComponent
   ],
   imports: [
-    CommonModule
+    CommonModule,
+    ShareModule
   ],
   exports: [PokemonListComponent]
 })
