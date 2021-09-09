@@ -9,9 +9,10 @@ import { ModalComponent } from '@shared/app-modal/modal.component'
   styleUrls: ['./pokemon-list.component.scss']
 })
 export class PokemonListComponent implements OnInit {
-  @ViewChild('modal') modal: ModalComponent | undefined
+  //@ViewChild('modal') modal: ModalComponent | undefined
   pokemonList: PokemonList[] = []
-  currentPokemon: number = 1
+  currentPokemon!: number
+  isOpen = false
 
   constructor(private _pokeService: PokemonService) { }
 
@@ -29,6 +30,6 @@ export class PokemonListComponent implements OnInit {
 
   showDetail(value: number) {
     this.currentPokemon = value
-    this.modal?.toggleModal()
+    this.isOpen = true
   }
 }

@@ -19,7 +19,7 @@
   </div>
 </div>
 
-<app-modal #modal>
+<app-modal *ngIf='isOpen' (closeModal)='isOpen = false'>
   <app-pokemon-detail [id]='currentPokemon'></app-pokemon-detail>
 </app-modal>
 
