@@ -1,0 +1,108 @@
+<div class='container'>
+  <div class='poke-form'>
+    <form (ngSubmit)="onSubmit()" [formGroup]="pokeForm" class="mb-4">
+      <div class="mb-3">
+        <label for="pokeName" class="form-label">Poke name</label>
+        <input
+          type="text"
+          id="pokeName"
+          class="form-control"
+          formControlName="pokeName"
+        />
+        <div *ngIf='pokeForm.get("pokeName")?.hasError("required") && pokeForm.get("pokeName")?.touched' class='mt-2 alert alert-danger'>
+          Field is required.
+        </div>
+      </div>
+      <div class="mb-3">
+        <div>
+          <label for="pokeType" class="form-label">Types</label>
+          <select class="form-select" id="pokeType" formControlName="pokeType">
+            <option *ngFor='let item of pokemonTypes' value='{{item.name}}'>{{item.name}}</option>
+          </select>
+        </div>
+      </div>
+
+      <div formGroupName='base'>
+        <div class="mb-3">
+          <label for="hp" class="form-label">HP</label>
+          <input
+            type="number"
+            class="form-control"
+            id="hp"
+            formControlName="hp"
+          />
+          <div *ngIf='pokeForm.get("hp")?.hasError("required") && pokeForm.get("hp")?.touched' class='mt-2 alert alert-danger'>
+            Field is required.
+          </div>
+        </div>
+        <div class="mb-3">
+          <label for="attack" class="form-label">Attack</label>
+          <input
+            type="number"
+            class="form-control"
+            id="attack"
+            formControlName="attack"
+          />
+          <div *ngIf='pokeForm.get("attack")?.hasError("required") && pokeForm.get("attack")?.touched' class='mt-2 alert alert-danger'>
+            Field is required.
+          </div>
+        </div>
+        <div class="mb-3">
+          <label for="defense" class="form-label">Defense</label>
+          <input
+            type="number"
+            class="form-control"
+            id="defense"
+            formControlName="defense"
+          />
+          <div *ngIf='pokeForm.get("defense")?.hasError("required") && pokeForm.get("defense")?.touched' class='mt-2 alert alert-danger'>
+            Field is required.
+          </div>
+        </div>
+        <div class="mb-3">
+          <label for="spAttack" class="form-label">SP Attack</label>
+          <input
+            type="number"
+            class="form-control"
+            id="spAttack"
+            formControlName="spAttack"
+          />
+          <div *ngIf='pokeForm.get("spAttack")?.hasError("required") && pokeForm.get("spAttack")?.touched' class='mt-2 alert alert-danger'>
+            Field is required.
+          </div>
+        </div>
+        <div class="mb-3">
+          <label for="spDefense" class="form-label">SP Defense</label>
+          <input
+            type="number"
+            class="form-control"
+            id="spDefense"
+            formControlName="spDefense"
+          />
+          <div *ngIf='pokeForm.get("spDefense")?.hasError("required") && pokeForm.get("spDefense")?.touched' class='mt-2 alert alert-danger'>
+            Field is required.
+          </div>
+        </div>
+        <div class="mb-3">
+          <label for="speed" class="form-label">Speed</label>
+          <input
+            type="number"
+            class="form-control"
+            id="speed"
+            formControlName="speed"
+          />
+          <div *ngIf='pokeForm.get("speed")?.hasError("required") && pokeForm.get("speed")?.touched' class='mt-2 alert alert-danger'>
+            Field is required.
+          </div>
+        </div>
+      </div>
+
+      <button class="btn btn-primary" [disabled]="pokeForm.invalid">
+        Save
+      </button>
+      <button class="btn btn-outline-secondary mx-2" (click)='cancel()'>
+        Cancel
+      </button>
+    </form>
+  </div>
+</div>

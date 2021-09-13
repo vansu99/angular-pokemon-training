@@ -1,4 +1,6 @@
 import { Component, EventEmitter, OnInit, Output } from '@angular/core'
+import { Observable, Subject } from 'rxjs'
+import { PokemonList } from '@features/pokemon/models/pokemon.model'
 
 @Component({
   selector: 'app-pokemon-search',
@@ -7,6 +9,7 @@ import { Component, EventEmitter, OnInit, Output } from '@angular/core'
 })
 export class PokemonSearchComponent implements OnInit {
   @Output() searchPoke = new EventEmitter<string>()
+
   constructor() { }
 
   ngOnInit(): void {

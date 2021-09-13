@@ -3,7 +3,11 @@ import { CommonModule } from '@angular/common';
 import { PokemonListComponent } from './components/pokemon-list/pokemon-list.component';
 import { PokemonDetailComponent } from './components/pokemon-detail/pokemon-detail.component';
 import { PokemonSearchComponent } from './components/pokemon-search/pokemon-search.component';
-import { ShareModule } from '@shared/share.module'
+import { ShareModule } from '@shared/share.module';
+import { PokemonFormComponent } from './components/pokemon-form/pokemon-form.component'
+import { ReactiveFormsModule } from '@angular/forms'
+import { HttpClientModule } from '@angular/common/http'
+import { RouterModule } from '@angular/router'
 
 
 
@@ -11,11 +15,15 @@ import { ShareModule } from '@shared/share.module'
   declarations: [
     PokemonListComponent,
     PokemonDetailComponent,
-    PokemonSearchComponent
+    PokemonSearchComponent,
+    PokemonFormComponent
   ],
   imports: [
     CommonModule,
-    ShareModule
+    ShareModule,
+    ReactiveFormsModule,
+    HttpClientModule,
+    RouterModule,
   ],
   exports: [PokemonListComponent]
 })

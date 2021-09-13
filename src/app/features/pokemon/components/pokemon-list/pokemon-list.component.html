@@ -1,10 +1,14 @@
 <div class="container">
+  <router-outlet></router-outlet>
   <app-pokemon-search (searchPoke)='onSearchPokemon($event)'></app-pokemon-search>
+  <a routerLink='/add' class='btn btn-primary mb-4'>Thêm mới pokemon</a>
   <div class="row g-4">
-    <div class="col-sm-3" *ngFor="let pokemon of pokemonList">
-      <div class="border rounded p-2 d-flex flex-column justify-content-center align-items-center" (click)='showDetail(pokemon.id)'>
-        <img [src]="pokemon.img" [alt]="pokemon.name.english">
-        <h3>{{ pokemon.name.english }}</h3>
+    <div class="col-6 col-sm-4 col-md-3" *ngFor="let pokemon of pokemonList">
+      <div class="border rounded p-2 d-flex flex-column justify-content-center align-items-center">
+        <div class='text-center' (click)='showDetail(pokemon.id)'>
+          <img [src]="pokemon.img" [alt]="pokemon.name.english" class='poke-image'>
+          <h3>{{ pokemon.name.english }}</h3>
+        </div>
         <div class="mb-2">
           <span class="d-inline-block p-1 me-2 rounded text-uppercase bg-default" *ngFor="let item of pokemon.type"
                 [ngClass]="{
@@ -14,6 +18,7 @@
           'indigo-color':item === 'Poison'
         }">{{ item }}</span>
         </div>
+        <button class='btn btn-outline-primary btn-sm mt-2' (click)='onEdit(pokemon.id)'>Edit</button>
       </div>
     </div>
   </div>

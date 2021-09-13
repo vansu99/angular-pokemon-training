@@ -1,7 +1,7 @@
-import { Component, OnInit, ViewChild } from '@angular/core'
+import { Component, OnInit } from '@angular/core'
 import { PokemonList } from '@features/pokemon/models/pokemon.model'
 import { PokemonService } from '@features/pokemon/services/pokemon.service'
-import { ModalComponent } from '@shared/app-modal/modal.component'
+import { Router } from '@angular/router'
 
 @Component({
   selector: 'app-pokemon-list',
@@ -9,27 +9,30 @@ import { ModalComponent } from '@shared/app-modal/modal.component'
   styleUrls: ['./pokemon-list.component.scss']
 })
 export class PokemonListComponent implements OnInit {
-  //@ViewChild('modal') modal: ModalComponent | undefined
   pokemonList: PokemonList[] = []
-  currentPokemon!: number
+  currentPokemon!: number | string
   isOpen = false
 
-  constructor(private _pokeService: PokemonService) { }
+  constructor(private _pokeService: PokemonService, private readonly router: Router) { }
 
   ngOnInit(): void {
-    this.pokemonList = this._pokeService.getListPokemons()
+    this.pokemonList = this._pokeService.getListPokemon()
   }
 
   onSearchPokemon(searchTerm: string) {
     if(searchTerm) {
       this.pokemonList = this.pokemonList.filter(pokemon => pokemon.name.english.toLowerCase().includes(searchTerm.toLowerCase()))
     } else {
-      this.pokemonList = this._pokeService.getListPokemons()
+      this.pokemonList = this._pokeService.getListPokemon()
     }
   }
 
-  showDetail(value: number) {
+  showDetail(value: number | string) {
     this.currentPokemon = value
     this.isOpen = true
+  }
+
+  onEdit(id: number | string) {
+    this.router.navigate(['', id, 'edit'])
   }
 }

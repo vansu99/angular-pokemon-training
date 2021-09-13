@@ -1,4 +1,4 @@
-const fakeDataPokemonList = [
+const DataPokemon = [
   {
     id: 1,
     name: {
@@ -1901,4 +1901,4 @@ const fakeDataPokemonList = [
   },
 ];
 
-export default fakeDataPokemonList;
+export default DataPokemon;
