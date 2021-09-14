@@ -1,35 +1,59 @@
 import { Injectable } from '@angular/core';
 import { PokemonList } from '@features/pokemon/models/pokemon.model'
 import DataPokemon from '@features/pokemon/data/pokemon-data';
-import { BehaviorSubject, Observable } from 'rxjs'
+import { Observable, of } from 'rxjs'
 import { HttpClient } from '@angular/common/http'
 import { map } from 'rxjs/operators'
+import { StorageService } from '@core/services/storage.service'
 
 @Injectable({
   providedIn: 'root'
 })
 export class PokemonService {
-  private _pokemonList$ = new BehaviorSubject<PokemonList[]>([])
-  pokemonList$ = this._pokemonList$.asObservable()
+  filteredPokemon!: PokemonList[]
+  pokemonList!: PokemonList[]
 
-  constructor(private httpClient: HttpClient) {}
+  constructor(private readonly httpClient: HttpClient, private readonly storageService: StorageService) {}
 
-  getListPokemon(): PokemonList[] {
-    return JSON.parse(<string>localStorage.getItem('pokemonList')) || DataPokemon;
+  getListPokemon() {
+    const pokemons = DataPokemon.reduce((acc, cur) => {
+      const infoPoke = { ...cur, type: cur.type.map(t => t.toLowerCase()) }
+      // @ts-ignore
+      acc.push(infoPoke)
+      return acc
+    }, [])
+    this.pokemonList = this.storageService.getValue('pokemonList') || pokemons;
+    this.filteredPokemon = [...this.pokemonList]
+    return this.pokemonList
   }
 
-  getPokemon(id: number | string): any {
-    return DataPokemon.find(poke => poke.id === id)
+  getPokemon(id: number) {
+    const pokemon = this.pokemonList.find((poke) => {
+      return poke.id === id
+    })
+    if(pokemon) {
+      return of(pokemon)
+    }else {
+      return of({})
+    }
   }
 
   getPokemonTypes(): Observable<any> {
     return this.httpClient.get<any>('https://pokeapi.co/api/v2/type').pipe(map(res => {return res.results}))
   }
 
-  addPokemon(data: any): PokemonList[] {
-    const newPokemom = [...DataPokemon, data]
-    localStorage.setItem('pokemonList', JSON.stringify(newPokemom))
+  addPokemon(data: any) {
+    const newPokemon = [...this.pokemonList, data]
+    this.storageService.setObject('pokemonList', newPokemon)
     alert('Thêm mới thành công.')
-    return newPokemom
   }
+
+  // editPokemon(id: number, data: PokemonList) {
+  //   const newPoke = [...this.pokemonList]
+  //   const index = this.pokemonList.findIndex(poke => poke.id === id)
+  //   newPoke[index] = data
+  //   this.pokemonList = newPoke
+  //   console.log(newPoke[index])
+  //   this.storageService.setObject('pokemonList', this.pokemonList)
+  // }
 }

@@ -16,8 +16,8 @@ interface PokemonName {
 
 export interface PokemonList {
   base: PokemonBase;
-  id: number | string;
-  img: string;
+  id: number;
+  img?: string;
   name: PokemonName;
   type: string[];
 }

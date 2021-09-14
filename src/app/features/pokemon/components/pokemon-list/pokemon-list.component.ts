@@ -10,7 +10,7 @@ import { Router } from '@angular/router'
 })
 export class PokemonListComponent implements OnInit {
   pokemonList: PokemonList[] = []
-  currentPokemon!: number | string
+  currentPokemon!: number
   isOpen = false
 
   constructor(private _pokeService: PokemonService, private readonly router: Router) { }
@@ -27,12 +27,12 @@ export class PokemonListComponent implements OnInit {
     }
   }
 
-  showDetail(value: number | string) {
+  showDetail(value: number) {
     this.currentPokemon = value
     this.isOpen = true
   }
 
-  onEdit(id: number | string) {
+  onEdit(id: number) {
     this.router.navigate(['', id, 'edit'])
   }
 }

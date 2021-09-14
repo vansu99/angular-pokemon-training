@@ -8,8 +8,9 @@ import { PokemonFormComponent } from './components/pokemon-form/pokemon-form.com
 import { ReactiveFormsModule } from '@angular/forms'
 import { HttpClientModule } from '@angular/common/http'
 import { RouterModule } from '@angular/router'
-
-
+import { CoreModule } from '@core/core.module'
+import { MatSelectModule } from '@angular/material/select';
+import {MatButtonModule} from '@angular/material/button';
 
 @NgModule({
   declarations: [
@@ -24,6 +25,9 @@ import { RouterModule } from '@angular/router'
     ReactiveFormsModule,
     HttpClientModule,
     RouterModule,
+    CoreModule,
+    MatSelectModule,
+    MatButtonModule
   ],
   exports: [PokemonListComponent]
 })

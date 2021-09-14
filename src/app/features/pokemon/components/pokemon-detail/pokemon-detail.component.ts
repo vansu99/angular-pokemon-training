@@ -8,13 +8,16 @@ import { PokemonService } from '@features/pokemon/services/pokemon.service'
   styleUrls: ['./pokemon-detail.component.scss']
 })
 export class PokemonDetailComponent implements OnInit {
-  @Input() id!: number| string;
+  @Input() id!: number;
   pokemonDetail!: PokemonList
   constructor(private readonly _pokeService: PokemonService) {
   }
 
   ngOnInit() {
-    this.pokemonDetail = this._pokeService.getPokemon(this.id)
+   this._pokeService.getPokemon(this.id).subscribe(poke => {
+     // @ts-ignore
+     this.pokemonDetail = poke
+   })
   }
 
 }
