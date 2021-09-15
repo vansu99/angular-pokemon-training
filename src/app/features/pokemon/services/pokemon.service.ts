@@ -16,13 +16,13 @@ export class PokemonService {
   constructor(private readonly httpClient: HttpClient, private readonly storageService: StorageService) {}
 
   getListPokemon() {
-    const pokemons = DataPokemon.reduce((acc, cur) => {
+    const convertPokemon = DataPokemon.reduce((acc, cur) => {
       const infoPoke = { ...cur, type: cur.type.map(t => t.toLowerCase()) }
       // @ts-ignore
       acc.push(infoPoke)
       return acc
     }, [])
-    this.pokemonList = this.storageService.getValue('pokemonList') || pokemons;
+    this.pokemonList = this.storageService.getValue('pokemonList') || convertPokemon;
     this.filteredPokemon = [...this.pokemonList]
     return this.pokemonList
   }
@@ -36,6 +36,12 @@ export class PokemonService {
     }else {
       return of({})
     }
+  }
+
+  filteringPokemon(query: string) {
+    return this.pokemonList.filter(item => {
+      return item.name.english.toLowerCase().includes(query.toLowerCase())
+    })
   }
 
   getPokemonTypes(): Observable<any> {

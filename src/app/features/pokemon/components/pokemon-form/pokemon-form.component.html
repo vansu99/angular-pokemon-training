@@ -10,29 +10,26 @@
           class="form-control"
           formControlName="english"
         />
-        <div *ngIf='pokeForm.get("english")?.hasError("required") && pokeForm.get("english")?.touched' class='mt-2 alert alert-danger'>
+
+        <div *ngIf='pokeForm.get("name.english")?.hasError("required") && pokeForm.get("name.english")?.touched'
+             class='mt-2 alert alert-danger'
+        >
           Field is required.
+        </div>
+        <div *ngIf='pokeForm.get("name.english")?.hasError("maxlength") && pokeForm.get("name.english")?.touched'
+             class='mt-2 alert alert-danger'
+        >
+          lố 100
         </div>
       </div>
 
-<!--      <div class="mb-3">-->
-<!--        <ng-container formArrayName='type'>-->
-<!--          <label for="pokeType" class="form-label">Types</label>-->
-<!--          <div *ngFor='let _ of type.controls; index as i'>-->
-<!--            <select class="form-select" id="pokeType" formControlName="{{i}}">-->
-<!--              <option *ngFor='let item of pokemonTypes' value='{{item.name}}'>{{item.name}}</option>-->
-<!--            </select>-->
-<!--          </div>-->
-<!--        </ng-container>-->
-<!--      </div>-->
-      <div class=''>
+
         <mat-form-field appearance='outline'>
           <mat-label>Choose pokemon type</mat-label>
           <mat-select formControlName="type" multiple>
             <mat-option *ngFor="let pokemon of pokemonTypes" [value]="pokemon.name">{{pokemon.name}}</mat-option>
           </mat-select>
         </mat-form-field>
-      </div>
 
       <div formGroupName='base'>
         <div class="mb-3">
@@ -43,7 +40,9 @@
             id="HP"
             formControlName="HP"
           />
-          <div *ngIf='pokeForm.get("HP")?.hasError("required") && pokeForm.get("HP")?.touched' class='mt-2 alert alert-danger'>
+          <div *ngIf='pokeForm.get("base.HP")?.hasError("required") && pokeForm.get("base.HP")?.touched'
+               class='mt-2 alert alert-danger'
+          >
             Field is required.
           </div>
         </div>
@@ -55,7 +54,7 @@
             id="Attack"
             formControlName="Attack"
           />
-          <div *ngIf='pokeForm.get("attack")?.hasError("required") && pokeForm.get("attack")?.touched' class='mt-2 alert alert-danger'>
+          <div *ngIf='pokeForm.get("base.attack")?.hasError("required") && pokeForm.get("base.attack")?.touched' class='mt-2 alert alert-danger'>
             Field is required.
           </div>
         </div>
@@ -67,7 +66,9 @@
             id="Defense"
             formControlName="Defense"
           />
-          <div *ngIf='pokeForm.get("Defense")?.hasError("required") && pokeForm.get("Defense")?.touched' class='mt-2 alert alert-danger'>
+          <div *ngIf='pokeForm.get("base.Defense")?.hasError("required") && pokeForm.get("base.Defense")?.touched'
+               class='mt-2 alert alert-danger'
+          >
             Field is required.
           </div>
         </div>
@@ -79,7 +80,9 @@
             id="SpAttack"
             formControlName="SpAttack"
           />
-          <div *ngIf='pokeForm.get("SpAttack")?.hasError("required") && pokeForm.get("SpAttack")?.touched' class='mt-2 alert alert-danger'>
+          <div *ngIf='pokeForm.get("base.SpAttack")?.hasError("required") && pokeForm.get("base.SpAttack")?.touched'
+               class='mt-2 alert alert-danger'
+          >
             Field is required.
           </div>
         </div>
@@ -91,7 +94,9 @@
             id="SpDefense"
             formControlName="SpDefense"
           />
-          <div *ngIf='pokeForm.get("SpDefense")?.hasError("required") && pokeForm.get("SpDefense")?.touched' class='mt-2 alert alert-danger'>
+          <div *ngIf='pokeForm.get("base.SpDefense")?.hasError("required") && pokeForm.get("base.SpDefense")?.touched'
+               class='mt-2 alert alert-danger'
+          >
             Field is required.
           </div>
         </div>
@@ -103,7 +108,9 @@
             id="Speed"
             formControlName="Speed"
           />
-          <div *ngIf='pokeForm.get("Speed")?.hasError("required") && pokeForm.get("Speed")?.touched' class='mt-2 alert alert-danger'>
+          <div *ngIf='pokeForm.get("base.Speed")?.hasError("required") && pokeForm.get("base.Speed")?.touched'
+               class='mt-2 alert alert-danger'
+          >
             Field is required.
           </div>
         </div>
@@ -118,3 +125,7 @@
     </form>
   </div>
 </div>
+
+<app-modal *ngIf='isOpen' (closeModal)='isOpen = false'>
+  {{ pokemonInfo | json }}
+</app-modal>

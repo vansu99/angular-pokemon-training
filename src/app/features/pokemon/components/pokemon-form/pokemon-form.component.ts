@@ -13,6 +13,8 @@ export class PokemonFormComponent implements OnInit {
   pokeForm!: FormGroup
   pokemonTypes: any[] = []
   pokeId!: number
+  isOpen = false
+  pokemonInfo!: PokemonList
   constructor(
     private readonly fb: FormBuilder,
     private readonly _pokeService: PokemonService,
@@ -60,7 +62,6 @@ export class PokemonFormComponent implements OnInit {
   }
 
   updateForm(pokemon: PokemonList) {
-    console.log(pokemon)
     this.pokeForm.patchValue({
       name: pokemon.name,
       type: pokemon.type,
@@ -82,8 +83,10 @@ export class PokemonFormComponent implements OnInit {
       img: 'https://www.meme-arsenal.com/memes/d2c3cc91094e03526c59197504feadbb.jpg',
       ...formValue
     }
+    this.pokemonInfo = itemPoke
     this._pokeService.addPokemon(itemPoke)
-    this.router.navigate([''])
+    this.isOpen = true
+    //this.router.navigate([''])
   }
 
 
