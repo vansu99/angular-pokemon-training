@@ -38,12 +38,6 @@ export class PokemonService {
     }
   }
 
-  filteringPokemon(query: string) {
-    return this.pokemonList.filter(item => {
-      return item.name.english.toLowerCase().includes(query.toLowerCase())
-    })
-  }
-
   getPokemonTypes(): Observable<any> {
     return this.httpClient.get<any>('https://pokeapi.co/api/v2/type').pipe(map(res => {return res.results}))
   }

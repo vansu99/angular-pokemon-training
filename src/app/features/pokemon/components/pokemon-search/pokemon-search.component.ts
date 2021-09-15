@@ -1,6 +1,4 @@
 import { Component, EventEmitter, OnInit, Output } from '@angular/core'
-import { Observable, Subject } from 'rxjs'
-import { PokemonList } from '@features/pokemon/models/pokemon.model'
 import { FormControl } from '@angular/forms'
 import { debounceTime } from 'rxjs/operators'
 import { PokemonService } from '@features/pokemon/services/pokemon.service'
@@ -10,19 +8,20 @@ import { PokemonService } from '@features/pokemon/services/pokemon.service'
   templateUrl: './pokemon-search.component.html',
   styleUrls: ['./pokemon-search.component.scss']
 })
-export class PokemonSearchComponent {
+export class PokemonSearchComponent implements OnInit{
   @Output() searchPoke = new EventEmitter<string>()
-  //query = new FormControl('')
+  query = new FormControl('')
 
-  constructor(private readonly _pokeService: PokemonService) {
-    // this.query.valueChanges.pipe(debounceTime(1000)).subscribe(res => {
-    //   this._pokeService.filteringPokemon(res)
-    // })
+  constructor(private readonly _pokeService: PokemonService) {}
+
+  ngOnInit(): void {
+    this.query.valueChanges.pipe(debounceTime(1000)).subscribe(res => {
+      this.searchPoke.emit(res)
+    })
   }
 
-
-  searchPokemon(value: string) {
-    this.searchPoke.emit(value)
-  }
+  // searchPokemon(value: string) {
+  //   this.searchPoke.emit(value)
+  // }
 
 }
