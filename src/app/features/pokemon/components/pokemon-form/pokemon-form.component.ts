@@ -47,12 +47,12 @@ export class PokemonFormComponent implements OnInit {
       }),
       type: [],
       base: this.fb.group({
-        HP: [0, Validators.compose([Validators.required])],
-        Attack: [0, Validators.compose([Validators.required])],
-        Defense: [0, Validators.compose([Validators.required])],
-        SpAttack: [0, Validators.compose([Validators.required])],
-        SpDefense: [0, Validators.compose([Validators.required])],
-        Speed: [0, Validators.compose([Validators.required])]
+        HP: [0, Validators.compose([Validators.required, Validators.pattern("^[0-9]*$")])],
+        Attack: [0, Validators.compose([Validators.required, Validators.pattern("^[0-9]*$")])],
+        Defense: [0, Validators.compose([Validators.required, Validators.pattern("^[0-9]*$")])],
+        SpAttack: [0, Validators.compose([Validators.required, Validators.pattern("^[0-9]*$")])],
+        SpDefense: [0, Validators.compose([Validators.required, Validators.pattern("^[0-9]*$")])],
+        Speed: [0, Validators.compose([Validators.required, Validators.pattern("^[0-9]*$")])]
       })
     });
   }

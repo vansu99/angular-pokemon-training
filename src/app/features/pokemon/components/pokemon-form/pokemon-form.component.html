@@ -19,7 +19,7 @@
         <div *ngIf='pokeForm.get("name.english")?.hasError("maxlength") && pokeForm.get("name.english")?.touched'
              class='mt-2 alert alert-danger'
         >
-          lố 100
+          Bạn đã nhập quá 100 ký tự.
         </div>
       </div>
 
@@ -35,7 +35,7 @@
         <div class="mb-3">
           <label for="HP" class="form-label">HP</label>
           <input
-            type="number"
+            type="text"
             class="form-control"
             id="HP"
             formControlName="HP"
@@ -45,17 +45,25 @@
           >
             Field is required.
           </div>
+          <div *ngIf='pokeForm.get("base.HP")?.hasError("pattern") && pokeForm.get("base.HP")?.touched'
+               class='mt-2 alert alert-danger'
+          >
+            Bạn phải nhập số.
+          </div>
         </div>
         <div class="mb-3">
           <label for="Attack" class="form-label">Attack</label>
           <input
-            type="number"
+            type="text"
             class="form-control"
             id="Attack"
             formControlName="Attack"
           />
           <div *ngIf='pokeForm.get("base.attack")?.hasError("required") && pokeForm.get("base.attack")?.touched' class='mt-2 alert alert-danger'>
             Field is required.
+          </div>
+          <div *ngIf='pokeForm.get("base.attack")?.hasError("pattern") && pokeForm.get("base.attack")?.touched' class='mt-2 alert alert-danger'>
+            Bạn phải nhập số
           </div>
         </div>
         <div class="mb-3">
@@ -71,6 +79,11 @@
           >
             Field is required.
           </div>
+          <div *ngIf='pokeForm.get("base.Defense")?.hasError("pattern") && pokeForm.get("base.Defense")?.touched'
+               class='mt-2 alert alert-danger'
+          >
+            Bạn phải nhập số
+          </div>
         </div>
         <div class="mb-3">
           <label for="SpAttack" class="form-label">SP Attack</label>
@@ -84,6 +97,11 @@
                class='mt-2 alert alert-danger'
           >
             Field is required.
+          </div>
+          <div *ngIf='pokeForm.get("base.SpAttack")?.hasError("pattern") && pokeForm.get("base.SpAttack")?.touched'
+               class='mt-2 alert alert-danger'
+          >
+            Bạn phải nhập số
           </div>
         </div>
         <div class="mb-3">
