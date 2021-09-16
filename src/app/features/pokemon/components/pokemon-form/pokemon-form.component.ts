@@ -91,14 +91,14 @@ export class PokemonFormComponent implements OnInit {
 
 
   onEditPokemon() {
-    // const formValue = this.pokeForm.getRawValue()
-    // const itemPokemonEdit = {
-    //   id: parseInt(String(this.pokeId)),
-    //   img: 'https://cdn2.iconfinder.com/data/icons/pokemon-flaticons/64/satoshi-avatar-people-pokemon-nintendo-video-game-gaming-gartoon-512.png',
-    //   ...formValue
-    // }
-    // this._pokeService.editPokemon(this.pokeId, itemPokemonEdit)
-    // console.log(itemPokemonEdit)
+    const formValue = this.pokeForm.getRawValue()
+    const pokemonEdit = {
+      id: parseInt(String(this.pokeId)),
+      img: 'https://cdn2.iconfinder.com/data/icons/pokemon-flaticons/64/satoshi-avatar-people-pokemon-nintendo-video-game-gaming-gartoon-512.png',
+      ...formValue
+    }
+    this.pokemonInfo = pokemonEdit
+    this.isOpen = true
   }
 
   cancel() {
