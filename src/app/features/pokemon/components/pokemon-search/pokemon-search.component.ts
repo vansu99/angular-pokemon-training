@@ -15,7 +15,7 @@ export class PokemonSearchComponent implements OnInit{
   constructor(private readonly _pokeService: PokemonService) {}
 
   ngOnInit(): void {
-    this.query.valueChanges.pipe(debounceTime(1000)).subscribe(res => {
+    this.query.valueChanges.pipe(debounceTime(500)).subscribe(res => {
       this.searchPoke.emit(res)
     })
   }

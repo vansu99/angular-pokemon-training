@@ -1,14 +1,17 @@
 <div class="container">
   <router-outlet></router-outlet>
   <app-pokemon-search (searchPoke)='onSearchPokemon($event)'></app-pokemon-search>
-  <a routerLink='/add' class='btn btn-primary mb-4'>Thêm mới pokemon</a>
+  <a routerLink='/pokemon/add' class='btn btn-primary mb-4'>Thêm mới pokemon</a>
+
   <div class="row g-4">
-    <ng-container *ngIf='pokemonList.length > 0; else notfound'>
-      <div class="col-6 col-sm-4 col-md-3" *ngFor="let pokemon of pokemonList">
+    <ng-container *ngIf='pokemonList | async; else notfound'>
+      <div class="col-6 col-sm-4 col-md-3" *ngFor="let pokemon of pokemonList | async">
         <div class="border rounded p-2 d-flex flex-column justify-content-center align-items-center">
-          <div class='text-center' (click)='showDetail(pokemon.id)'>
-            <img [src]="pokemon.img" [alt]="pokemon.name.english" class='poke-image'>
-            <h3>{{ pokemon.name.english }}</h3>
+          <div class='text-center'>
+            <a [routerLink]="['', pokemon.id]">
+              <img [src]="pokemon.img" [alt]="pokemon.name.english" class='poke-image'>
+              <h3>{{ pokemon.name.english }}</h3>
+            </a>
           </div>
           <div class="mb-2">
           <span class="d-inline-block p-1 me-2 rounded text-uppercase bg-default" *ngFor="let item of pokemon.type"
@@ -32,8 +35,8 @@
   </div>
 </ng-template>
 
-<app-modal *ngIf='isOpen' (closeModal)='isOpen = false'>
-  <app-pokemon-detail [id]='currentPokemon'></app-pokemon-detail>
-</app-modal>
+<!--<app-modal *ngIf='isOpen' (closeModal)='isOpen = false'>-->
+<!--  <app-pokemon-detail [id]='currentPokemon'></app-pokemon-detail>-->
+<!--</app-modal>-->
 
 

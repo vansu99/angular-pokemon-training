@@ -2,34 +2,34 @@ import { Component, OnInit } from '@angular/core'
 import { PokemonList } from '@features/pokemon/models/pokemon.model'
 import { PokemonService } from '@features/pokemon/services/pokemon.service'
 import { Router } from '@angular/router'
+import { Observable } from 'rxjs'
 
 @Component({
   selector: 'app-pokemon-list',
   templateUrl: './pokemon-list.component.html',
-  styleUrls: ['./pokemon-list.component.scss']
+  styleUrls: ['./pokemon-list.component.scss'],
 })
 export class PokemonListComponent implements OnInit {
-  pokemonList: PokemonList[] = []
-  currentPokemon!: number
-  isOpen = false
+  pokemonList!: Observable<PokemonList[]>
 
-  constructor(private _pokeService: PokemonService, private readonly router: Router) { }
+  constructor(private _pokeService: PokemonService, private readonly router: Router) {
+    this.pokemonList = this._pokeService.pokemonList$
+  }
 
   ngOnInit(): void {
-    this.pokemonList = this._pokeService.getListPokemon()
+    this.loadPokemonList()
+  }
+
+  loadPokemonList() {
+    this._pokeService.getListPokemon()
   }
 
   onSearchPokemon(searchTerm: string) {
-    if(searchTerm) {
-      this.pokemonList = this.pokemonList.filter(pokemon => pokemon.name.english.toLowerCase().includes(searchTerm.toLowerCase()))
+    if (searchTerm) {
+      //this.pokemonList = this.pokemonList.filter(pokemon => pokemon.name.english.toLowerCase().includes(searchTerm.toLowerCase()))
     } else {
-      this.pokemonList = this._pokeService.getListPokemon()
+      //this.pokemonList = this._pokeService.getListPokemon()
     }
-  }
-
-  showDetail(value: number) {
-    this.currentPokemon = value
-    this.isOpen = true
   }
 
   onEdit(id: number) {

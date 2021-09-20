@@ -1,50 +1,60 @@
-import { Injectable } from '@angular/core';
+import { Injectable } from '@angular/core'
 import { PokemonList } from '@features/pokemon/models/pokemon.model'
-import DataPokemon from '@features/pokemon/data/pokemon-data';
-import { Observable, of } from 'rxjs'
+import DataPokemon from '@features/pokemon/data/pokemon-data'
+import { BehaviorSubject, Observable } from 'rxjs'
 import { HttpClient } from '@angular/common/http'
 import { map } from 'rxjs/operators'
-import { StorageService } from '@core/services/storage.service'
+import { Router } from '@angular/router'
 
 @Injectable({
-  providedIn: 'root'
+  providedIn: 'root',
 })
 export class PokemonService {
-  filteredPokemon!: PokemonList[]
-  pokemonList!: PokemonList[]
+  private pokemonSubject = new BehaviorSubject<PokemonList[]>([])
+  pokemonList$ = this.pokemonSubject.asObservable()
 
-  constructor(private readonly httpClient: HttpClient, private readonly storageService: StorageService) {}
+  constructor(
+    private router: Router,
+    private readonly httpClient: HttpClient
+  ) {}
 
-  getListPokemon() {
+  getListPokemon(): void {
+    console.log('run list')
     const convertPokemon = DataPokemon.reduce((acc, cur) => {
-      const infoPoke = { ...cur, type: cur.type.map(t => t.toLowerCase()) }
+      const infoPoke = { ...cur, type: cur.type.map((t) => t.toLowerCase()) }
       // @ts-ignore
       acc.push(infoPoke)
       return acc
     }, [])
-    this.pokemonList = this.storageService.getValue('pokemonList') || convertPokemon;
-    this.filteredPokemon = [...this.pokemonList]
-    return this.pokemonList
+    const currentValue = this.pokemonSubject.getValue()
+    return this.pokemonSubject.next([...convertPokemon, ...currentValue])
   }
 
   getPokemon(id: number) {
-    const pokemon = this.pokemonList.find((poke) => {
-      return poke.id === id
-    })
-    if(pokemon) {
-      return of(pokemon)
-    }else {
-      return of({})
-    }
+    return this.pokemonSubject.pipe(
+      map((pokemon) => pokemon.find((item) => item.id === Number(id))),
+    )
   }
 
   getPokemonTypes(): Observable<any> {
-    return this.httpClient.get<any>('https://pokeapi.co/api/v2/type').pipe(map(res => {return res.results}))
+    return this.httpClient.get<any>('https://pokeapi.co/api/v2/type').pipe(
+      map((res) => {
+        return res.results
+      }),
+    )
+  }
+
+  nextPokemon(id: number) {
+    this.router.navigate(['', Number(id) + 1])
+  }
+
+  prevPokemon(id: number) {
+    this.router.navigate(['', Number(id) - 1])
   }
 
   addPokemon(data: any) {
-    const newPokemon = [...this.pokemonList, data]
-    this.storageService.setObject('pokemonList', newPokemon)
+    const currentPoke = this.pokemonSubject.getValue()
+    currentPoke.push(data)
     alert('Thêm mới thành công.')
   }
 

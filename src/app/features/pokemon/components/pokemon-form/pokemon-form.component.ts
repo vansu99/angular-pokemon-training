@@ -1,8 +1,8 @@
-import { Component, OnInit } from '@angular/core';
-import { FormArray, FormBuilder, FormControl, FormGroup, Validators } from '@angular/forms'
-import { PokemonService } from '@features/pokemon/services/pokemon.service'
-import { ActivatedRoute, Router } from '@angular/router'
-import { PokemonList } from '@features/pokemon/models/pokemon.model'
+import { Component, OnInit } from "@angular/core";
+import { FormArray, FormBuilder, FormGroup, Validators } from "@angular/forms";
+import { PokemonService } from "@features/pokemon/services/pokemon.service";
+import { ActivatedRoute, Router } from "@angular/router";
+import { PokemonList } from "@features/pokemon/models/pokemon.model";
 
 @Component({
   selector: 'app-pokemon-form',
@@ -15,6 +15,7 @@ export class PokemonFormComponent implements OnInit {
   pokeId!: number
   isOpen = false
   pokemonInfo!: PokemonList
+
   constructor(
     private readonly fb: FormBuilder,
     private readonly _pokeService: PokemonService,
@@ -25,9 +26,7 @@ export class PokemonFormComponent implements OnInit {
 
   ngOnInit(): void {
     this.pokeId = this.route.snapshot.params['id']
-    this._pokeService.getPokemonTypes().subscribe(res => {
-      this.pokemonTypes = res
-    })
+    this.loadPokemonTypes()
     this.initForm()
     if(this.pokeId) {
       this._pokeService.getPokemon(Number(this.pokeId)).subscribe(poke => {
@@ -35,6 +34,12 @@ export class PokemonFormComponent implements OnInit {
         this.updateForm(poke)
       })
     }
+  }
+
+  loadPokemonTypes() {
+    this._pokeService.getPokemonTypes().subscribe(res => {
+      this.pokemonTypes = res
+    })
   }
 
   initForm() {
@@ -85,19 +90,17 @@ export class PokemonFormComponent implements OnInit {
     }
     this.pokemonInfo = itemPoke
     this._pokeService.addPokemon(itemPoke)
-    this.isOpen = true
-    //this.router.navigate([''])
+    this.router.navigate([''])
   }
 
 
   onEditPokemon() {
     const formValue = this.pokeForm.getRawValue()
-    const pokemonEdit = {
-      id: parseInt(String(this.pokeId)),
+    this.pokemonInfo = {
+      id: Number(this.pokeId),
       img: 'https://cdn2.iconfinder.com/data/icons/pokemon-flaticons/64/satoshi-avatar-people-pokemon-nintendo-video-game-gaming-gartoon-512.png',
       ...formValue
     }
-    this.pokemonInfo = pokemonEdit
     this.isOpen = true
   }
 
