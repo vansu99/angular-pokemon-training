@@ -1,0 +1,15 @@
+<header>
+  <nav class="navbar navbar-dark bg-primary">
+    <div class="container-md">
+      <a class="navbar-brand" routerLink="/">Pokemon</a>
+      <div class="d-flex pokemon-like">
+        <ng-container *ngIf="statusPokemon$ | async as status">
+          Likes
+          <span>{{ status.likes }}</span>
+          | Dislikes
+          <span>{{ status.dislikes }}</span>
+        </ng-container>
+      </div>
+    </div>
+  </nav>
+</header>

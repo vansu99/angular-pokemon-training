@@ -2,7 +2,6 @@ import { NgModule } from '@angular/core';
 import { CommonModule } from '@angular/common';
 import { PokemonListComponent } from './components/pokemon-list/pokemon-list.component';
 import { PokemonDetailComponent } from './components/pokemon-detail/pokemon-detail.component';
-import { PokemonSearchComponent } from './components/pokemon-search/pokemon-search.component';
 import { ShareModule } from '@shared/share.module';
 import { PokemonFormComponent } from './components/pokemon-form/pokemon-form.component'
 import { ReactiveFormsModule } from '@angular/forms'
@@ -16,7 +15,6 @@ import {MatButtonModule} from '@angular/material/button';
   declarations: [
     PokemonListComponent,
     PokemonDetailComponent,
-    PokemonSearchComponent,
     PokemonFormComponent
   ],
   imports: [

@@ -119,6 +119,7 @@
   },
   "defaultProject": "pokemon",
   "cli": {
+    "analytics": "584f90eb-5586-4f5d-80a9-36453ed5ff92",
     "defaultCollection": "@angular-eslint/schematics"
   }
 }

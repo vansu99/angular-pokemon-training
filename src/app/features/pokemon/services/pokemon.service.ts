@@ -1,10 +1,11 @@
 import { Injectable } from '@angular/core'
 import { PokemonList } from '@features/pokemon/models/pokemon.model'
 import DataPokemon from '@features/pokemon/data/pokemon-data'
-import { BehaviorSubject, Observable } from 'rxjs'
+import { BehaviorSubject, Observable, of, throwError } from 'rxjs'
 import { HttpClient } from '@angular/common/http'
-import { map } from 'rxjs/operators'
+import { catchError, map } from 'rxjs/operators'
 import { Router } from '@angular/router'
+import { StorageService } from '@core/services/storage.service'
 
 @Injectable({
   providedIn: 'root',
@@ -13,21 +14,28 @@ export class PokemonService {
   private pokemonSubject = new BehaviorSubject<PokemonList[]>([])
   pokemonList$ = this.pokemonSubject.asObservable()
 
+  private favoritePokemonSubject = new BehaviorSubject<any>(
+    this.storageService.getValue('status') || { likes: 0, dislikes: 0 },
+  )
+  favoritePokemon$ = this.favoritePokemonSubject.asObservable()
+
   constructor(
     private router: Router,
-    private readonly httpClient: HttpClient
+    private readonly httpClient: HttpClient,
+    private readonly storageService: StorageService,
   ) {}
 
-  getListPokemon(): void {
-    console.log('run list')
-    const convertPokemon = DataPokemon.reduce((acc, cur) => {
+  getListPokemon() {
+    const convertPokemon: PokemonList[] = DataPokemon.reduce((acc, cur) => {
       const infoPoke = { ...cur, type: cur.type.map((t) => t.toLowerCase()) }
       // @ts-ignore
       acc.push(infoPoke)
       return acc
     }, [])
-    const currentValue = this.pokemonSubject.getValue()
-    return this.pokemonSubject.next([...convertPokemon, ...currentValue])
+
+    return of(
+      this.storageService.getValue<PokemonList[]>('pokemonList') || convertPokemon,
+    ).subscribe((res) => this.pokemonSubject.next(res))
   }
 
   getPokemon(id: number) {
@@ -41,6 +49,9 @@ export class PokemonService {
       map((res) => {
         return res.results
       }),
+      catchError((err) => {
+        return throwError(err)
+      }),
     )
   }
 
@@ -52,10 +63,30 @@ export class PokemonService {
     this.router.navigate(['', Number(id) - 1])
   }
 
+  likePokemon() {
+    const currentValue = this.favoritePokemonSubject.getValue()
+    const likes = {
+      ...currentValue,
+      likes: currentValue.likes + 1,
+    }
+    this.storageService.setObject('status', likes)
+    this.favoritePokemonSubject.next(likes)
+  }
+
+  dislikePokemon() {
+    const currentValue = this.favoritePokemonSubject.getValue()
+    const dislikes = {
+      ...currentValue,
+      dislikes: currentValue.dislikes + 1,
+    }
+    this.storageService.setObject('status', dislikes)
+    this.favoritePokemonSubject.next(dislikes)
+  }
+
   addPokemon(data: any) {
-    const currentPoke = this.pokemonSubject.getValue()
-    currentPoke.push(data)
-    alert('Thêm mới thành công.')
+    const newPokemon: PokemonList[] = [...this.pokemonSubject.getValue(), data]
+    this.pokemonSubject.next(newPokemon)
+    this.storageService.setObject('pokemonList', newPokemon)
   }
 
   // editPokemon(id: number, data: PokemonList) {

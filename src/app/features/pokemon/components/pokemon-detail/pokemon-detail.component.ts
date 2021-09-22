@@ -35,4 +35,12 @@ export class PokemonDetailComponent implements OnInit {
     this._pokeService.prevPokemon(id)
   }
 
+  likePokemon() {
+    this._pokeService.likePokemon()
+  }
+
+  dislikePokemon() {
+    this._pokeService.dislikePokemon()
+  }
+
 }

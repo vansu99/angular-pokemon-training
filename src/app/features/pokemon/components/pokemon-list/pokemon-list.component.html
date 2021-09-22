@@ -1,7 +1,7 @@
 <div class="container">
   <router-outlet></router-outlet>
-  <app-pokemon-search (searchPoke)='onSearchPokemon($event)'></app-pokemon-search>
-  <a routerLink='/pokemon/add' class='btn btn-primary mb-4'>Thêm mới pokemon</a>
+  <input type="text" class="form-control" placeholder="Search pokemon" [formControl]='query'>
+  <a routerLink='/pokemon/add' class='btn btn-primary my-4'>Thêm mới pokemon</a>
 
   <div class="row g-4">
     <ng-container *ngIf='pokemonList | async; else notfound'>
@@ -36,7 +36,7 @@
 </ng-template>
 
 <!--<app-modal *ngIf='isOpen' (closeModal)='isOpen = false'>-->
-<!--  <app-pokemon-detail [id]='currentPokemon'></app-pokemon-detail>-->
+<!--  <app-pokemon-form></app-pokemon-form>-->
 <!--</app-modal>-->
 
 
