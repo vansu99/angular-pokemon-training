@@ -1,0 +1,39 @@
+.bg-default {
+  background-color: #f5e6ad;
+}
+
+.indigo-color {
+  background-color: #a18dce !important;
+}
+
+.pokemon-detail-wrapper {
+  position: relative;
+  max-width: 600px;
+}
+
+.pokemon-detail {
+  border: 1px solid #d1d1d1;
+  max-width: 300px;
+  margin: 0 auto;
+  overflow: hidden;
+  border-radius: 10px;
+  text-align: center;
+  box-shadow: rgba(99, 99, 99, 0.2) 0 2px 8px 0;
+}
+
+.pokemon-button {
+  padding: 6px 15px;
+  outline: none;
+  position: absolute;
+  top: 50%;
+  transform: translateY(-50%);
+  border-color: #d1d1d1;
+  border-radius: 5px;
+  font-size: 16px;
+}
+.pokemon-button.pokemon-prev {
+  left: 0;
+}
+.pokemon-button.pokemon-next {
+  right: 0;
+}
