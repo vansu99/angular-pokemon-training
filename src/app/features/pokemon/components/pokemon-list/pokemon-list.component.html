@@ -4,8 +4,8 @@
   <a routerLink='/pokemon/add' class='btn btn-primary my-4'>Thêm mới pokemon</a>
 
   <div class="row g-4">
-    <ng-container *ngIf='pokemonList | async; else notfound'>
-      <div class="col-6 col-sm-4 col-md-3" *ngFor="let pokemon of pokemonList | async">
+    <ng-container *ngIf='pokemonList.length > 0; else notfound'>
+      <div class="col-6 col-sm-4 col-md-3" *ngFor="let pokemon of filteredPokemon">
         <div class="border rounded p-2 d-flex flex-column justify-content-center align-items-center">
           <div class='text-center'>
             <a [routerLink]="['', pokemon.id]">
@@ -34,6 +34,7 @@
     <h3>Không tìm thấy pokemon.</h3>
   </div>
 </ng-template>
+
 
 <!--<app-modal *ngIf='isOpen' (closeModal)='isOpen = false'>-->
 <!--  <app-pokemon-form></app-pokemon-form>-->
